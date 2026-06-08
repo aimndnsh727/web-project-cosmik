@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,37 +14,47 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Keeps Member 1's profile configurations intact.
      */
     protected $fillable = [
         'name',
-        'matric_number', // Added
+        'matric_number', // Modified by Member 1
         'email',
         'password',
-        'expertise_area', // Added
+        'expertise_area', // Modified by Member 1
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // ==========================================
+    // MEMBER 3 ADDITIONS: RELATIONSHIPS
+    // ==========================================
+
+    /**
+     * Groups created and led by this user (One-to-Many).
+     */
+    public function ledGroups()
+    {
+        return $this->hasMany(StudyGroup::class, 'leader_id');
+    }
+
+    /**
+     * Groups joined by this user (Many-to-Many via pivot table).
+     */
+    public function joinedGroups()
+    {
+        return $this->belongsToMany(StudyGroup::class, 'group_members', 'user_id', 'group_id')
+                    ->withTimestamps();
     }
 }
