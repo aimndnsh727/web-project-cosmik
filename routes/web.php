@@ -29,6 +29,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/groups/{group}/resources', [App\Http\Controllers\StudyResourceController::class, 'store'])->name('resources.store');
     Route::get('/resources/{resource}/download', [App\Http\Controllers\StudyResourceController::class, 'download'])->name('resources.download');
     Route::delete('/resources/{resource}', [App\Http\Controllers\StudyResourceController::class, 'destroy'])->name('resources.destroy');
+    // MEMBER 2 ROUTES
+    // ==========================================
+    // automatically maps create, store, edit, update, and destroy to StudyGroupController
+    Route::resource('study-groups', StudyGroupController::class)->except(['index', 'show']);
 
     // ==========================================
     // MEMBER 1 ROUTES
