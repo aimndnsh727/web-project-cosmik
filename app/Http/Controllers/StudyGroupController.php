@@ -93,6 +93,9 @@ class StudyGroupController extends Controller
         $group->load(['leader', 'members', 'resources.uploader']);
 
         return view('groups.show', compact('group', 'isLeader', 'isMember'));
+
+    }
+
     // =================================================
     // MEMBER 2 CORE LOGIC: STUDY GROUP CRUD OPERATIONS
     // =================================================
@@ -122,50 +125,48 @@ class StudyGroupController extends Controller
         return redirect()->route('dashboard')->with('success', 'Study group created successfully!');
     }
 
-    // Show the form for editing the specified study group.
-
-    public function edit(StudyGroup $studyGroup)
+// Show the form for editing the specified study group.
+    public function edit(StudyGroup $group)
     {
         // Ensure only the leader can edit the group
-        if ($studyGroup->leader_id !== Auth::id()) {
+        if ($group->leader_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
-        return view('study_groups.edit', compact('studyGroup'));
+        return view('study_groups.edit', compact('group'));
     }
 
     // Updated the specified study group in the database
-
-    public function update(Request $request, StudyGroup $studyGroup)
+    public function update(Request $request, StudyGroup $group)
     {
         // Ensure only the leader can update the group
-        if ($studyGroup->leader_id !== Auth::id()) {
+        if ($group->leader_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
         $validated = $request->validate([
-            'title'         => 'required|string|max:255',
-            'subj_code'     => 'required|string|max:50',
-            'description'   => 'nullable|string',
-            'venue'         => 'required|string|max:255',
-            'session_date'  => 'required|date',
-            'session_time'  => 'required',
+            'title'        => 'required|string|max:255',
+            'subj_code'    => 'required|string|max:50',
+            'description'  => 'nullable|string',
+            'venue'        => 'required|string|max:255',
+            'session_date' => 'required|date',
+            'session_time' => 'required',
         ]);
 
-        $studyGroup->update($validated);
+        $group->update($validated);
 
         return redirect()->route('dashboard')->with('success', 'Study group updated successfully!');
     }
 
     // remove the specified study group from the database
-    public function destroy(StudyGroup $studyGroup)
+    public function destroy(StudyGroup $group)
     {
         // Ensure only the leader can delete the group
-        if ($studyGroup->leader_id !== Auth::id()) {
+        if ($group->leader_id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
-        $studyGroup->delete();
+        $group->delete();
 
         return redirect()->route('dashboard')->with('success', 'Study group deleted successfully!');
     }
