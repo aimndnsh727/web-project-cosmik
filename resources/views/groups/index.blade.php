@@ -122,9 +122,15 @@
                                 </div>
                                 
                                 <div>
-                                    <button class="px-3.5 py-1.5 bg-white hover:bg-teal-600 text-teal-600 hover:text-white font-bold text-xs rounded-lg transition border border-teal-600/30 shadow-xs">
-                                        Join Group
-                                    </button>
+                                    @if($group->leader_id === Auth::id() || $group->members->contains(Auth::id()))
+                                        <a href="{{ route('groups.show', $group->id) }}" class="inline-block px-3.5 py-1.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-lg transition shadow-xs">
+                                            View Group
+                                        </a>
+                                    @else
+                                        <button class="px-3.5 py-1.5 bg-white hover:bg-teal-600 text-teal-600 hover:text-white font-bold text-xs rounded-lg transition border border-teal-600/30 shadow-xs">
+                                            Join Group
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 

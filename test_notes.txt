@@ -1,0 +1,10 @@
+Welcome to Cosmik Study Circle!
+
+These are notes on Web Application Development (BIIT 2305).
+Topics covered:
+1. Laravel Routing & Middleware
+2. Blade Template Inheritance
+3. SQLite Database Configurations
+4. File Storage symbolic links
+
+Let's study hard together!

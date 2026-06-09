@@ -23,6 +23,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/groups', [StudyGroupController::class, 'index'])->name('groups.index');
 
     // ==========================================
+    // MEMBER 5 ROUTES & DETAIL VIEW ROUTE
+    // ==========================================
+    Route::get('/groups/{group}', [StudyGroupController::class, 'show'])->name('groups.show');
+    Route::post('/groups/{group}/resources', [App\Http\Controllers\StudyResourceController::class, 'store'])->name('resources.store');
+    Route::get('/resources/{resource}/download', [App\Http\Controllers\StudyResourceController::class, 'download'])->name('resources.download');
+    Route::delete('/resources/{resource}', [App\Http\Controllers\StudyResourceController::class, 'destroy'])->name('resources.destroy');
+
+    // ==========================================
     // MEMBER 1 ROUTES
     // ==========================================
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

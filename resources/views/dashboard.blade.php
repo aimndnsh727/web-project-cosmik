@@ -101,7 +101,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex items-center space-x-2 self-start sm:self-center">
-                                                <a href="#" class="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200">
+                                                <a href="{{ route('groups.show', $group->id) }}" class="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200">
                                                     Manage Group
                                                 </a>
                                             </div>
@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex items-center space-x-2 self-start sm:self-center">
-                                                <a href="#" class="px-3 py-1.5 bg-teal-50 hover:bg-teal-100 text-teal-700 font-semibold text-xs rounded-lg transition border border-teal-200">
+                                                <a href="{{ route('groups.show', $group->id) }}" class="px-3 py-1.5 bg-teal-50 hover:bg-teal-100 text-teal-700 font-semibold text-xs rounded-lg transition border border-teal-200">
                                                     Enter Session
                                                 </a>
                                             </div>

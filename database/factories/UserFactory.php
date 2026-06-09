@@ -26,6 +26,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'matric_number' => fake()->unique()->numerify('#######'),
+            'expertise_area' => fake()->randomElement(['Laravel', 'Vite', 'React', 'Tailwind CSS', 'Vue.js', 'Python', 'Machine Learning']),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

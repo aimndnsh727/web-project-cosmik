@@ -90,4 +90,12 @@ class StudyGroup extends Model
             $subQuery->where('user_id', $userId);
         });
     }
+
+    /**
+     * Get the resources uploaded for this study group.
+     */
+    public function resources()
+    {
+        return $this->hasMany(StudyResource::class);
+    }
 }

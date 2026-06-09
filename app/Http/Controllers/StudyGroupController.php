@@ -77,4 +77,21 @@ class StudyGroupController extends Controller
 
         return view('groups.index', compact('groups', 'searchedSubject', 'searchedTitle', 'searchedDate'));
     }
+
+    /**
+     * Show study group details and resource repository.
+     */
+    public function show(StudyGroup $group)
+    {
+        $userId = Auth::id();
+
+        // Check if user is leader or member
+        $isLeader = $group->leader_id === $userId;
+        $isMember = $group->members()->where('user_id', $userId)->exists();
+
+        // Load relationships
+        $group->load(['leader', 'members', 'resources.uploader']);
+
+        return view('groups.show', compact('group', 'isLeader', 'isMember'));
+    }
 }
