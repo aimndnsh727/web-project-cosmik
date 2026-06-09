@@ -19,7 +19,13 @@
     <div class="py-10 bg-slate-50 min-h-[calc(100vh-65px)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-            <!-- Academic Analytics Metrics Bar -->
+            @if(session('success'))
+                <div class="p-4 mb-4 text-sm text-teal-800 rounded-2xl bg-teal-50 border border-teal-100 shadow-sm flex items-center space-x-2 animate-fade-in">
+                    <svg class="w-5 h-5 text-teal-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.207a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span class="font-bold">{{ session('success') }}</span>
+                </div>
+            @endif
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between">
                     <div>
@@ -52,13 +58,10 @@
                 </div>
             </div>
 
-            <!-- Content Split Grid -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <!-- Main Study Circle Feeds (MEMBER 3 - GRADING FOCUS: LOOPS) -->
                 <div class="lg:col-span-2 space-y-6">
                     
-                    <!-- Groups You Lead -->
                     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                         <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                             <div>
@@ -92,7 +95,7 @@
                                                     <span class="flex items-center">
                                                         📅 {{ \Carbon\Carbon::parse($group->session_date)->format('d M Y') }}
                                                     </span>
-                                                    <span>
+                                                    <span class="flex items-center">
                                                         ⏱️ {{ \Carbon\Carbon::parse($group->session_time)->format('h:i A') }}
                                                     </span>
                                                     <span class="flex items-center text-teal-600 font-medium">
@@ -100,11 +103,23 @@
                                                     </span>
                                                 </div>
                                             </div>
+
                                             <div class="flex items-center space-x-2 self-start sm:self-center">
                                                 <a href="{{ route('groups.show', $group->id) }}" class="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-xs rounded-lg transition border border-slate-200">
                                                     Manage Group
+                                                <a href="{{ route('study-groups.edit', $group->id) }}" class="px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-xs rounded-lg transition border border-amber-200">
+                                                    Edit
                                                 </a>
+                                                
+                                                <form action="{{ route('study-groups.destroy', $group->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this study group? This cannot be undone.');" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs rounded-lg transition border border-rose-200">
+                                                        Delete
+                                                    </button>
+                                                </form>
                                             </div>
+
                                         </div>
                                     @endforeach
                                 </div>
@@ -112,7 +127,6 @@
                         </div>
                     </div>
 
-                    <!-- Groups You've Joined -->
                     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                         <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                             <div>
@@ -163,15 +177,13 @@
 
                 </div>
 
-                <!-- Sidebar column: Actions & Dynamic Notifications -->
                 <div class="space-y-6">
                     
-                    <!-- Quick Actions Nav Panel (MEMBER 3 - GRADING FOCUS: LINKS) -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
                         <h3 class="text-md font-bold text-slate-800">Quick Actions</h3>
                         
                         <div class="space-y-3">
-                            <a href="#" class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs uppercase tracking-widest rounded-xl transition duration-150 shadow-sm">
+                            <a href="{{ route('study-groups.create') }}" class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs uppercase tracking-widest rounded-xl transition duration-150 shadow-sm">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 Create Study Group
                             </a>
@@ -183,7 +195,6 @@
                         </div>
                     </div>
 
-                    <!-- Pending Approval Center (Matches Mockup Requirements) -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                         <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
                             <h3 class="text-md font-bold text-slate-800">Pending Requests</h3>
