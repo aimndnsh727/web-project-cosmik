@@ -57,4 +57,15 @@ class User extends Authenticatable
         return $this->belongsToMany(StudyGroup::class, 'group_members', 'user_id', 'group_id')
                     ->withTimestamps();
     }
+    // Member 4: Many-to-Many Relationship with Study Groups
+    public function studyGroups()
+    {
+        return $this->belongsToMany(StudyGroup::class)->withTimestamps()->withPivot('role');
+    }
+
+    // Member 4: One-to-Many Relationship with Join Requests
+    public function joinRequests()
+    {
+        return $this->hasMany(JoinRequest::class);
+    }
 }
