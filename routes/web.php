@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 // Default guest landing page
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth-landing');
 });
 
 // Middleware Protected Environment (Breeze Default Auth Group)

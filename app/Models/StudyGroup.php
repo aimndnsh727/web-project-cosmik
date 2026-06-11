@@ -98,11 +98,6 @@ class StudyGroup extends Model
     {
         return $this->hasMany(StudyResource::class);
     }
-    // Member 4: Many-to-Many Relationship with Users (Members)
-    public function members()
-    {
-        return $this->belongsToMany(User::class)->withTimestamps()->withPivot('role');
-    }
 
     // Member 4: One-to-Many Relationship with Join Requests
     public function joinRequests()
