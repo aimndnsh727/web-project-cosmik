@@ -47,8 +47,8 @@ class StudyResourceController extends Controller
                 if (!$uploadedFile->isValid()) {
                     continue; // skip invalid files
                 }
-
-                $originalName = $filenames[$index] ?? $uploadedFile->getClientOriginalName();
+                 // Check if the specific index exists and isn't empty, otherwise fall back to native name
+                $originalName = (!empty($filenames[$index])) ? $filenames[$index] : $uploadedFile->getClientOriginalName();
                 $extension = strtolower($uploadedFile->getClientOriginalExtension());
                 
                 // Ensure extension is preserved or added
@@ -80,6 +80,9 @@ class StudyResourceController extends Controller
     /**
      * Download the specified resource.
      */
+    /**
+     * Download the specified resource.
+     */
     public function download(StudyResource $resource)
     {
         // Check if file exists in storage
@@ -87,6 +90,7 @@ class StudyResourceController extends Controller
             abort(404, 'File not found in storage.');
         }
 
+        // Force a safe file download response
         return Storage::disk('public')->download($resource->file_path, $resource->file_name);
     }
 

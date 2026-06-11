@@ -203,10 +203,6 @@
                                                             <button onclick="previewImage('{{ asset('storage/' . $res->file_path) }}', '{{ $res->file_name }}')" class="px-2 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold rounded-lg transition" title="Preview Image">
                                                                 👁️ Preview
                                                             </button>
-                                                        @elseif($res->file_type === 'pdf')
-                                                            <a href="{{ asset('storage/' . $res->file_path) }}" target="_blank" class="px-2 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-[10px] font-bold rounded-lg transition" title="Open PDF">
-                                                                👁️ View PDF
-                                                            </a>
                                                         @endif
 
                                                         <!-- Download -->
