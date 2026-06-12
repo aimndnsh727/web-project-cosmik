@@ -445,4 +445,4 @@ The development process has provided us with valuable, industry-standard experie
 ## Video Presentation Link
 
 Watch our Cosmik walkthrough and presentation on YouTube:
-[Insert Here]
+https://drive.google.com/drive/folders/16mMR_QWIrTNPf2ZxC8wZ_77hwWpbYuAZ?usp=sharing
