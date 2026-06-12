@@ -10,11 +10,15 @@ return new class extends Migration
     {
         Schema::create('join_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('study_group_id')->constrained()->onDelete('cascade');
-            $table->string('status')->default('pending'); // pending, approved, declined
-            $table->text('message')->nullable(); 
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('study_group_id');
+            $table->string('status')->default('pending');
+            $table->text('message')->nullable();
             $table->timestamps();
+
+            // Foreign Key Links
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('study_group_id')->references('id')->on('study_groups')->onDelete('cascade');
         });
     }
 
